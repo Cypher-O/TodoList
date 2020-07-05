@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">TodoList</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="todo">TODO</string>
+    <string name="add_now">Add Now</string>
+    <string name="discard">Discard</string>
+    <string name="proceed">Proceed</string>
+    <string name="youtube_videos">Youtube Videos</string>
+    <string name="how_to_use_rest_api">How to use REST API</string>
+    <string name="_07_07_20">07-07-20</string>
+</resources>
