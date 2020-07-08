@@ -10,25 +10,25 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 
-public class BackBtn extends AppCompatActivity {
+public class HomeTodo extends AppCompatActivity {
+    Button exitButton, stayButton;
 
-    Button discardButton, proceedButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_back_btn);
+        setContentView(R.layout.activity_home_todo);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
 
-        discardButton = findViewById(R.id.discardBtn);
-        proceedButton = findViewById(R.id.proceedBtn);
+        exitButton = findViewById(R.id.exitBtn);
+        stayButton = findViewById(R.id.stayBtn);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        getWindow().setLayout((int) (width*.7), (int)(height*.1));
+        getWindow().setLayout((int) (width * .7), (int) (height * .1));
 
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
         layoutParams.gravity = Gravity.CENTER_HORIZONTAL;
@@ -37,16 +37,15 @@ public class BackBtn extends AppCompatActivity {
 
         getWindow().setAttributes(layoutParams);
 
-        discardButton.setOnClickListener(new View.OnClickListener() {
+        exitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
                 finish();
+                System.exit(0);
             }
         });
 
-        proceedButton.setOnClickListener(new View.OnClickListener() {
+        stayButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();

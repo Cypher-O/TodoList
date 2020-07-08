@@ -9,8 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".BackBtn"
-            android:theme="@style/AppTheme.PopMe"></activity>
+        <activity android:name=".HomeTodo"
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar"></activity>
+        <activity
+            android:name=".BackBtn"
+            android:theme="@style/Theme.AppCompat.Transparent.NoActionBar" />
         <activity
             android:name=".AddTask"
             android:theme="@style/AppTheme.PopMe" />
