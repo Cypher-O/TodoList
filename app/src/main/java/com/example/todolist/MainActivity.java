@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Todo> arrayList;
     TodoAdapter todoAdapter;
     FloatingActionButton fab;
+    private ImageView editButton, deleteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         //working with data
+        editButton = findViewById(R.id.editBtn);
+        deleteButton = findViewById(R.id.deleteBtn);
         todos = findViewById(R.id.todos);
         todos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 //        mLayoutManager.setReverseLayout(true);
@@ -67,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 //setting code to retrieve data and replace layout
                 for(DataSnapshot dataSnapshot: snapshot.getChildren()){
                     Todo todo = dataSnapshot.getValue(Todo.class);
-                    arrayList.add(0,todo);
+                    arrayList.add(todo);
 //                    arrayList.add(position, todo);
 //                    todoAdapter.notifyItemInserted(position);
                 }
@@ -79,6 +83,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
                 Toast.makeText(getApplicationContext(), "No Data", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), AddTask.class);
+                startActivity(intent);
+
+                databaseReference = FirebaseDatabase.getInstance().getReference().child("TodoList");
+                databaseReference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }
