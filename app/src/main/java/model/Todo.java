@@ -4,15 +4,17 @@ public class Todo {
     String todoTitle;
     String todoDescription;
     String todoDate;
+    String todoKey;
 
     public Todo(){
 
     }
 
-    public Todo(String todoTitle, String todoDescription, String todoDate) {
+    public Todo(String todoTitle, String todoDescription, String todoDate, String todoKey) {
         this.todoTitle = todoTitle;
         this.todoDescription = todoDescription;
         this.todoDate = todoDate;
+        this.todoKey = todoKey;
     }
 
     public String getTodoTitle() {
@@ -29,6 +31,14 @@ public class Todo {
 
     public void setTodoDescription(String todoDescription) {
         this.todoDescription = todoDescription;
+    }
+
+    public String getTodoKey() {
+        return todoKey;
+    }
+
+    public void setTodoKey(String todoKey) {
+        this.todoKey = todoKey;
     }
 
     public String getTodoDate() {

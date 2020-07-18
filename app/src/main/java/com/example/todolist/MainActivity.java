@@ -4,20 +4,21 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import adapter.TodoAdapter;
 import model.Todo;
@@ -35,21 +37,23 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Todo> arrayList;
     TodoAdapter todoAdapter;
     FloatingActionButton fab;
-    private ImageView editButton, deleteButton;
+    ImageView editButton, deleteButton;
 
+    private LinearLayoutManager linearLayoutManager;
+    private static final String TAG = "MainActivity";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        getWindow().setStatusBarColor(Color.rgb(72, 112,255));
+        getWindow().setStatusBarColor(Color.rgb(72, 112, 255));
 
-        fab = findViewById(R. id.floatingActionButton);
+        fab = findViewById(R.id.floatingActionButton);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent =  new Intent(getApplicationContext(), AddTask.class);
+                Intent intent = new Intent(getApplicationContext(), AddTask.class);
                 startActivity(intent);
             }
         });
@@ -58,9 +62,13 @@ public class MainActivity extends AppCompatActivity {
         editButton = findViewById(R.id.editBtn);
         deleteButton = findViewById(R.id.deleteBtn);
         todos = findViewById(R.id.todos);
-        todos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-//        mLayoutManager.setReverseLayout(true);
-//        mLayoutManager.setStackFromEnd(true);
+
+        linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+//        todos.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        todos.setHasFixedSize(true);
+        linearLayoutManager.setReverseLayout(true);
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        linearLayoutManager.setStackFromEnd(true);
         arrayList = new ArrayList<Todo>();
 
         //get data from firebase
@@ -69,15 +77,20 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 //setting code to retrieve data and replace layout
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                int i = 0;
+                arrayList.clear();
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Todo todo = dataSnapshot.getValue(Todo.class);
                     arrayList.add(todo);
-//                    arrayList.add(position, todo);
+                    i++;
 //                    todoAdapter.notifyItemInserted(position);
                 }
                 todoAdapter = new TodoAdapter(getApplicationContext(), arrayList);
+                todos.setLayoutManager(linearLayoutManager);
                 todos.setAdapter(todoAdapter);
                 todoAdapter.notifyDataSetChanged();
+                todoAdapter.notifyItemInserted(0);
+                Log.i(TAG, arrayList.toString());
             }
 
             @Override
@@ -85,40 +98,12 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "No Data", Toast.LENGTH_SHORT).show();
             }
         });
-
-        editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), AddTask.class);
-                startActivity(intent);
-
-                databaseReference = FirebaseDatabase.getInstance().getReference().child("TodoList");
-                databaseReference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-            }
-        });
-
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
     }
 
-    @Override
-    public void onBackPressed() {
-//        super.onBackPressed();
-        Intent intent = new Intent(getApplicationContext(), HomeTodo.class);
-        startActivity(intent);
-    }
+//    @Override
+//    public void onBackPressed() {
+////        super.onBackPressed();
+//        Intent intent = new Intent(getApplicationContext(), HomeTodo.class);
+//        startActivity(intent);
+//    }
 }

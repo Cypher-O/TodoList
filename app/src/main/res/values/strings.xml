@@ -11,4 +11,8 @@
     <string name="_07_07_20">07-07-2110</string>
     <string name="stay">Stay</string>
     <string name="exit">Exit</string>
+    <string name="save">Save</string>
+    <string name="delete">Delete</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
