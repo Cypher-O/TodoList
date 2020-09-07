@@ -54,32 +54,32 @@ public class DeleteOption extends AppCompatActivity {
         yesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                databaseReference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            finish();
-                            Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-
-//                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+//                databaseReference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
 //                    @Override
-//                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                        if (snapshot.hasChildren()) {
-//                            DataSnapshot firstChild = snapshot.getChildren().iterator().next();
-//                            firstChild.getRef().removeValue();
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        if(task.isSuccessful()){
+//                            finish();
+//                            Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
+//                        }else{
+//                            Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
 //                        }
 //                    }
-//
-//                    @Override
-//                    public void onCancelled(@NonNull DatabaseError error) {
-//
-//                    }
 //                });
+
+                databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChildren()) {
+                            DataSnapshot firstChild = snapshot.getChildren().iterator().next();
+                            firstChild.getRef().removeValue();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
         });
 

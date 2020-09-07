@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f1f4f6"
+    android:id="@+id/main_activity"
     tools:context=".MainActivity"
     >
 
@@ -40,7 +41,6 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="10dp"
-                android:src="@drawable/profile_pic"
                 app:civ_border_color="#000000"
                 app:layout_constraintRight_toRightOf="parent"
                 />

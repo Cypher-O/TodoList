@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -34,6 +35,7 @@ public class AddTask extends AppCompatActivity {
 
     private TextView todoDate;
     private DatePicker datePicker;
+    private Switch aSwitch;
     private int day, month, year;
     private final int DATE_DIALOG_ID = 999;
     TextInputEditText todoTitle, todoDescription;
@@ -65,6 +67,7 @@ public class AddTask extends AppCompatActivity {
         todoTitle = findViewById(R.id.titleField);
         todoDescription = findViewById(R.id.descriptionField);
         discardButton = findViewById(R.id.discardBtn);
+        aSwitch = findViewById(R.id.reminder_switch);
         datePickerIconButton = findViewById(R.id.datePicker_icon);
 
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -77,7 +80,7 @@ public class AddTask extends AppCompatActivity {
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        getWindow().setLayout((int) (width * .8), (int) (height * .6));
+        getWindow().setLayout((int) (width * .8), (int) (height * .58));
 
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
         layoutParams.gravity = Gravity.CENTER;
@@ -85,7 +88,7 @@ public class AddTask extends AppCompatActivity {
         layoutParams.y = -20;
 
         getWindow().setAttributes(layoutParams);
-
+//        validateOnTouchOutside();
         backButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,5 +154,13 @@ public class AddTask extends AppCompatActivity {
             }
         };
 
+    }
+    private void validateOnTouchOutside(){
+        if(!todoTitle.getText().toString().trim().equalsIgnoreCase("") || !todoDescription.getText().toString().trim().equalsIgnoreCase("")){
+            Intent intent = new Intent(getApplicationContext(), BackBtn.class);
+            startActivity(intent);
+        }else{
+            finish();
+        }
     }
 }

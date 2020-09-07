@@ -60,7 +60,7 @@ public class EditTask extends AppCompatActivity {
         int width = displayMetrics.widthPixels;
         int height = displayMetrics.heightPixels;
 
-        getWindow().setLayout((int) (width * .8), (int) (height * .6));
+        getWindow().setLayout((int) (width * .8), (int) (height * .58));
 
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
         layoutParams.gravity = Gravity.CENTER;
@@ -89,7 +89,6 @@ public class EditTask extends AppCompatActivity {
                         snapshot.getRef().child("todoKey").setValue(todoKeys);
                         finish();
                     }
-
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
 

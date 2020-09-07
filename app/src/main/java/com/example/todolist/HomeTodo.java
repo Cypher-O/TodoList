@@ -1,14 +1,13 @@
 package com.example.todolist;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class HomeTodo extends AppCompatActivity {
     Button exitButton, stayButton;
@@ -18,7 +17,6 @@ public class HomeTodo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_todo);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
 
         exitButton = findViewById(R.id.exitBtn);
         stayButton = findViewById(R.id.stayBtn);

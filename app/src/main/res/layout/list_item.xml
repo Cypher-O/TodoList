@@ -24,7 +24,7 @@
             android:text="@string/youtube_videos"
             android:textAlignment="center"
             android:textColor="#000C5D"
-            android:textSize="20dp"
+            android:textSize="20sp"
             />
 
         <TextView
@@ -35,7 +35,7 @@
             android:text="@string/how_to_use_rest_api"
             android:textAlignment="center"
             android:textColor="#ADADAD"
-            android:textSize="18sp"
+            android:textSize="16sp"
             />
     </LinearLayout>
 

@@ -94,7 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="00-00-00"
-            android:textSize="30sp"
+            android:textSize="23sp"
             app:layout_constraintTop_toBottomOf="@id/datetxt"
             />
 
@@ -122,6 +122,26 @@
         <!--            app:layout_constraintTop_toBottomOf="@id/displayDate"-->
         <!--            />-->
 
+        <TextView
+            android:id="@+id/reminder_txt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Reminder"
+            android:textSize="22sp"
+            app:layout_constraintTop_toBottomOf="@id/displayDate"
+            />
+
+        <Switch
+            android:id="@+id/reminder_switch"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginRight="10dp"
+            android:checked="true"
+            app:layout_constraintRight_toRightOf="@id/displayDate"
+            app:layout_constraintTop_toBottomOf="@id/displayDate"/>
+
         <Button
             android:id="@+id/saveBtn"
             android:layout_width="200dp"
@@ -131,7 +151,7 @@
             android:text="@string/save"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/displayDate"
+            app:layout_constraintTop_toBottomOf="@id/reminder_txt"
             android:drawableStart="@drawable/ic_add_black_24dp"
             android:paddingStart="50dp"
             android:paddingEnd="50dp"
