@@ -36,7 +36,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
-
 import java.util.ArrayList;
 import java.util.Date;
 import adapter.TodoAdapter;
@@ -96,9 +95,6 @@ public class MainActivity extends AppCompatActivity {
         boolean firstRun = sharedPreferences.getBoolean("firstRun", true);
         Log.d("Tag1", "fistRun: " + Boolean.valueOf(firstRun).toString());
 
-        /*mAuth = FirebaseAuth.getInstance();
-        createRequest();*/
-
         FirebaseDatabase.getInstance().setPersistenceEnabled(true);
 //        databaseReference = FirebaseDatabase.getInstance().getReference("TodoList");
 
@@ -119,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
                 arrayList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     Todo todo = dataSnapshot.getValue(Todo.class);
-//                    arrayList.clear();
                     arrayList.add(todo);
                     i++;
 //                    todoAdapter.notifyItemInserted(position);

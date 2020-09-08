@@ -17,4 +17,5 @@
     <string name="no">No</string>
     <string name="sign_in">Sign In</string>
     <string name="pref_previously_started" />
+    <string name="default_web_client_id">default_web_client_id</string>
 </resources>
