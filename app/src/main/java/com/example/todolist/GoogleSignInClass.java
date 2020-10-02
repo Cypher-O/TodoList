@@ -10,6 +10,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.github.ybq.android.spinkit.SpinKitView;
+import com.github.ybq.android.spinkit.sprite.Sprite;
+import com.github.ybq.android.spinkit.style.DoubleBounce;
+import com.github.ybq.android.spinkit.style.ThreeBounce;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -31,6 +36,8 @@ public class GoogleSignInClass extends AppCompatActivity {
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
     private TextView notNowText;
+//    private ProgressBar progressBar;
+    private SpinKitView progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +45,9 @@ public class GoogleSignInClass extends AppCompatActivity {
         setContentView(R.layout.activity_google_sign_in);
         signInBtn = findViewById(R.id.google_sign_in_btn);
         notNowText = findViewById(R.id.not_now);
+        progressBar = findViewById(R.id.spin_kit);
+
+//        ProgressBar progressBar = (ProgressBar)findViewById(R.id.spin_kit);
 
         mAuth = FirebaseAuth.getInstance();
         createRequest();
@@ -50,6 +60,7 @@ public class GoogleSignInClass extends AppCompatActivity {
                 editor.putBoolean("firstRun", true);
                 editor.commit();
                 signIn();
+                progressBar.setVisibility(View.VISIBLE);
             }
         });
 
@@ -72,6 +83,8 @@ public class GoogleSignInClass extends AppCompatActivity {
 
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+        Sprite doubleBounce = new ThreeBounce();
+        progressBar.setIndeterminateDrawable(doubleBounce);
     }
 
     private void signIn() {
@@ -121,6 +134,7 @@ public class GoogleSignInClass extends AppCompatActivity {
             } catch (ApiException e) {
                 // Google Sign In failed, update UI appropriately
                 Log.w(TAG, "Google sign in failed", e);
+//                Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
             }
         }
@@ -147,5 +161,13 @@ public class GoogleSignInClass extends AppCompatActivity {
                         }
                     }
                 });
+    }
+
+    public void btnActivated(){
+        progressBar.setVisibility(View.VISIBLE);
+    }
+
+    public void btnFinished(){
+        progressBar.setVisibility(View.GONE);
     }
 }

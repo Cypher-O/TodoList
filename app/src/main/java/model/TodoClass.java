@@ -1,16 +1,16 @@
 package model;
 
-public class Todo {
+public class TodoClass {
     String todoTitle;
     String todoDescription;
     String todoDate;
     String todoKey;
 
-    public Todo(){
+    public TodoClass(){
 
     }
 
-    public Todo(String todoTitle, String todoDescription, String todoDate, String todoKey) {
+    public TodoClass(String todoTitle, String todoDescription, String todoDate, String todoKey) {
         this.todoTitle = todoTitle;
         this.todoDescription = todoDescription;
         this.todoDate = todoDate;

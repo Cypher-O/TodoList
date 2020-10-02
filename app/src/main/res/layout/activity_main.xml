@@ -42,6 +42,7 @@
                 android:layout_height="50dp"
                 android:layout_marginRight="10dp"
                 app:civ_border_color="#000000"
+                android:src="@drawable/icons8_user_120px"
                 app:layout_constraintRight_toRightOf="parent"
                 />
 

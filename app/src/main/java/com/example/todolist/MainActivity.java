@@ -10,11 +10,13 @@ import android.view.View;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.Toast;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -40,12 +42,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import adapter.TodoAdapter;
 import de.hdodenhof.circleimageview.CircleImageView;
-import model.Todo;
+import model.TodoClass;
 
 public class MainActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     RecyclerView todos;
-    ArrayList <Todo> arrayList;
+    ArrayList <TodoClass> arrayList;
     TodoAdapter todoAdapter;
     FloatingActionButton fab;
     ImageView editButton, deleteButton;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private final static int RC_SIGN_IN = 123;
     private CircleImageView googleSigninCircleImageView;
     private FirebaseAuth mAuth;
+    private FirebaseRecyclerAdapter firebaseRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,7 +88,8 @@ public class MainActivity extends AppCompatActivity {
         linearLayoutManager.setReverseLayout(true);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         linearLayoutManager.setStackFromEnd(true);
-        arrayList = new ArrayList<Todo>();
+        arrayList = new ArrayList<TodoClass>();
+        new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(todos);
 
         SharedPreferences sharedPreferences = getSharedPreferences("prefs", 0);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -114,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
                 int i = 0;
                 arrayList.clear();
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    Todo todo = dataSnapshot.getValue(Todo.class);
+                    TodoClass todo = dataSnapshot.getValue(TodoClass.class);
                     arrayList.add(todo);
                     i++;
 //                    todoAdapter.notifyItemInserted(position);
@@ -143,10 +147,42 @@ public class MainActivity extends AppCompatActivity {
         if(arrayList != null){
             arrayList.clear();
         }else{
-            arrayList = new ArrayList<Todo>();
+            arrayList = new ArrayList<TodoClass>();
         }
     }
 
+    ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
+        @Override
+        public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+            return false;
+        }
+
+        @Override
+        public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+//            final String todoKeys = getIntent().getStringExtra("todoKey");
+//            databaseReference = FirebaseDatabase.getInstance().getReference().child("TodoList").child("Todos" + todoKeys);
+            test();
+            databaseReference.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        finish();
+                        Toast.makeText(getApplicationContext(), "Deleted", Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "Error", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+            arrayList.remove(viewHolder.getAdapterPosition());
+            todoAdapter.notifyDataSetChanged();
+        }
+    };
+
+public  void test(){
+    FirebaseDatabase.getInstance().setPersistenceEnabled(true);
+    final String todoKeys = getIntent().getStringExtra("todoKey");
+    databaseReference = FirebaseDatabase.getInstance().getReference().child("TodoList").child("Todos" + todoKeys);
+}
     //    @Override
 //    public void onBackPressed() {
 ////        super.onBackPressed();

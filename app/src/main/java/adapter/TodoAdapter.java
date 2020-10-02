@@ -13,13 +13,13 @@ import com.example.todolist.DeleteOption;
 import com.example.todolist.EditTask;
 import com.example.todolist.R;
 import java.util.ArrayList;
-import model.Todo;
+import model.TodoClass;
 
 public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.MyViewHolder> {
     Context context;
-    ArrayList<Todo> myTodo;
+    ArrayList<TodoClass> myTodo;
 
-    public TodoAdapter(Context context1, ArrayList<Todo> todo1){
+    public TodoAdapter(Context context1, ArrayList<TodoClass> todo1){
         context = context1;
         myTodo = todo1;
 //        setHasStableIds(true);
@@ -60,6 +60,10 @@ public class TodoAdapter extends RecyclerView.Adapter<TodoAdapter.MyViewHolder> 
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, DeleteOption.class);
+                intent.putExtra("todoTitle", getTodoTitles);
+                intent.putExtra("todoDescription", getTodoDescriptions);
+                intent.putExtra("todoDate", getTodoDates);
+                intent.putExtra("todoKey", getTodoKeys);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 context.startActivity(intent);
             }

@@ -30,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:text="Sign in with google to sync your list"
+        android:text="Sign in with google to sync your todos"
         app:layout_constraintTop_toBottomOf="@id/sign_in_txt"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
@@ -45,6 +45,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginTop="100dp"
+        android:drawableStart="@drawable/icons8_google_30px"
+        android:paddingStart="70dp"
+        android:paddingEnd="70dp"
+        android:elevation="10dp"
         android:textColor="@color/white"/>
 
     <TextView
@@ -57,5 +61,31 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    <com.github.ybq.android.spinkit.SpinKitView
+        android:id="@+id/spin_kit"
+        style="@style/SpinKitView.Large.Circle"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:visibility="gone"
+        app:SpinKit_Color="@color/colorAccent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <!--    <ProgressBar-->
+<!--        android:id="@+id/progressBar"-->
+<!--        style="?android:attr/progressBarStyle"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:indeterminate="true"-->
+<!--        android:indeterminateTint="@color/white"-->
+<!--        android:indeterminateTintMode="src_atop"-->
+<!--        android:visibility="gone"-->
+<!--        tools:layout_editor_absoluteX="146dp"-->
+<!--        tools:layout_editor_absoluteY="279dp" />-->
 
 </androidx.constraintlayout.widget.ConstraintLayout>
